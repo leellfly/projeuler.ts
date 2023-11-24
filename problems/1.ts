@@ -7,7 +7,6 @@
     Find the sum of all the multiples of 3 or 5 below 1000.
 */
 
-
 function solve(maxNum: number): number {
     const multipleOfThree = 3;
     const multipleOfFive = 5;
@@ -27,4 +26,8 @@ function solve(maxNum: number): number {
     return sum
 }
 
-console.log(solve(1000));
+console.log(solve(1000))//233168
+
+
+export { }
+
