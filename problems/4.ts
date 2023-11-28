@@ -37,18 +37,21 @@ console.log(solve())
 
 
 export { }
-// const isPalindrome = (n:number) => {
-//     let nArr = n.toString().split('')
-//     let i = 0
-//     let j = nArr.length-1
-//     while(i<=j){
-//         if(nArr[i] === nArr[j]){
-//             i++
-//             j--
-//         }else{
-//             return false
-//         }
-//     }
-//     return true
-// }
+/**
+ * const isPalindrome = (n:number) => {
+        let nArr = n.toString().split('')
+        let i = 0
+        let j = nArr.length-1
+        while(i<=j){
+            if(nArr[i] === nArr[j]){
+                i++
+                j--
+            }else{
+                return false
+            }
+        }
+        return true
+    }
+ */
+
 
