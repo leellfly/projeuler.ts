@@ -40,3 +40,6 @@ function solve(gridWidth: number, gridHeight: number) {
 const gridWidth = 20
 const gridHeight = 20
 console.log(solve(gridWidth, gridHeight))//137846528820
+
+
+export { }
