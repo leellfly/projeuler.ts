@@ -1,3 +1,6 @@
+import * as fs from 'fs'
+import * as path from 'path'
+
 class RunConfigure {
     static fromParser(args: Args): RunConfigure {
         return new RunConfigure()
@@ -25,6 +28,34 @@ function parseArgs(): Args {
     return args
 }
 
+
+class FolderExecutionTimer {
+    private folderPath: string
+
+    constructor(folderPath: string) {
+        this.folderPath = folderPath
+    }
+
+    private getFilesInFolder(folderPath: string): string[] {
+        const files = fs.readdirSync(folderPath)
+        return files
+            .filter(file => file.endsWith('.ts')) // Filter TypeScript files
+            .map(file => path.join(folderPath, file)) // Create full paths
+    }
+    private executeSolveMethod(filePath: string): void {
+        console.log(filePath);
+        require('./' + filePath)
+        console.log('__________________________________')
+    }
+
+    measureExecutionTimeForSolveMethods(): void {
+        const files = this.getFilesInFolder(this.folderPath)
+        files.forEach(filePath => {
+            this.executeSolveMethod(filePath)
+        })
+    }
+}
+
 function doList(id: string, full: boolean): void {
     console.log('List command:', id, full)
 }
@@ -34,7 +65,9 @@ function doCreate(id: string): void {
 }
 
 function doRun(conf: RunConfigure): void {
-    console.log('Run command:', conf)
+    const folderPath = 'problems'
+    const folderTimer = new FolderExecutionTimer(folderPath)
+    folderTimer.measureExecutionTimeForSolveMethods()
 }
 
 function main(): void {
