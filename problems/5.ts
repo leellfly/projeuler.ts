@@ -6,6 +6,7 @@
 
     What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 */
+import { measureTime } from "../utils"
 
 function solve(maxNum: number): number {
     const gcd = (a: number, b: number): number => b === 0 ? a : gcd(b, a % b)
@@ -21,7 +22,9 @@ function solve(maxNum: number): number {
     return smallestMultiple
 }
 
-console.log(solve(20));//232792560
+const [result, elapsedTime] = measureTime(() => solve(20))
+console.log('result', result) //232792560 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 
 export { }

@@ -6,14 +6,15 @@
 
     Find the sum of all the multiples of 3 or 5 below 1000.
 */
+import { measureTime } from "../utils"
 
 function solve(maxNum: number): number {
-    const multipleOfThree = 3;
-    const multipleOfFive = 5;
+    const multipleOfThree = 3
+    const multipleOfFive = 5
 
     let sum: number = 0
 
-    const isMultiple = (num: number): boolean => num % multipleOfThree === 0 || num % multipleOfFive === 0;
+    const isMultiple = (num: number): boolean => num % multipleOfThree === 0 || num % multipleOfFive === 0
 
 
     for (let i = 0; i < maxNum; i++) {
@@ -24,9 +25,12 @@ function solve(maxNum: number): number {
     }
 
     return sum
+
 }
 
-console.log(solve(1000))//233168
+const [result, elapsedTime] = measureTime(() => solve(1000))
+console.log('result', result) // 233168
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 
 export { }

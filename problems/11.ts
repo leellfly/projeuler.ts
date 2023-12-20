@@ -30,6 +30,7 @@
     What is the greatest product of four adjacent numbers in the same direction (up, down, left, right,
     or diagonally) in the 20 × 20 grid?
 */
+import { measureTime } from "../utils"
 
 const GRID: number[][] = [
     [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8,],
@@ -90,8 +91,9 @@ function solve() {
 
 }
 
-console.log(solve())//70600674
-
+const [result, elapsedTime] = measureTime(() => solve())
+console.log('result', result) //70600674 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 /*——————————————————————————————————————Solution of Version 2—————————————————————————————————————————— */
 function solveVersion2() {

@@ -12,6 +12,7 @@
     23 letters and 115 (one hundred and fifteen) contains 20 letters. The use of "and" when writing out
     numbers is in compliance with British usage.
 */
+import { measureTime } from "../utils"
 
 function solve(): number {
     const unitsDigit: { [key: number]: string } = {
@@ -56,6 +57,8 @@ function solve(): number {
     return sum
 }
 
-console.log(solve());//21124
+const [result, elapsedTime] = measureTime(() => solve())
+console.log('result', result) //21124 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 export { };

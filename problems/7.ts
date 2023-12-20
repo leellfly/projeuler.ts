@@ -5,6 +5,7 @@
 
     What is the 10001st prime number?
 */
+import { measureTime } from "../utils"
 
 function solve(targetPosition: number): number {
     if (targetPosition < 1) {
@@ -44,7 +45,9 @@ function solve(targetPosition: number): number {
     return i
 }
 
-console.log(solve(10001))//104743
+const [result, elapsedTime] = measureTime(() => solve(10001))
+console.log('result', result) //104743 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 
 export { }

@@ -102,6 +102,7 @@
     20849603980134001723930671666823555245252804609722
     53503534226472524250874054075591789781264330331690
 */
+import { measureTime } from "../utils"
 
 function solve() {
     const NUMBERSArr: bigint[] = [
@@ -213,6 +214,8 @@ function solve() {
 
 }
 
-console.log(solve())//5537376230
+const [result, elapsedTime] = measureTime(() => solve())
+console.log('result', result) //5537376230 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 export { }

@@ -28,6 +28,7 @@
     Find the thirteen adjacent digits in the 1000-digit number that have the greatest product. What is
     the value of this product?
 */
+import { measureTime } from "../utils"
 
 function solve(digit1000Str: string, adjacentDigitsCount: number) {
     if (digit1000Str.length < adjacentDigitsCount) {
@@ -71,7 +72,10 @@ const digit1000Str = "73167176531330624919225119674426574742355349194934"
     + "05886116467109405077541002256983155200055935729725"
     + "71636269561882670428252483600823257530420752963450"
 const adjacentDigitsCount = 13
-console.log(solve(digit1000Str, adjacentDigitsCount))//23514624000
+
+const [result, elapsedTime] = measureTime(() => solve(digit1000Str, adjacentDigitsCount))
+console.log('result', result) //23514624000 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 
 export { }

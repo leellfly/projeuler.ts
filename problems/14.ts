@@ -15,7 +15,7 @@
 
     NOTE: Once the chain starts the terms are allowed to go above one million.
 */
-
+import { measureTime } from "../utils"
 
 function solve(): number {
     const memo: Record<number, number> = {};
@@ -45,9 +45,9 @@ function solve(): number {
     return maxCollatzNaiveNumber;
 }
 
-
-
-console.log(solve())//837799
+const [result, elapsedTime] = measureTime(() => solve())
+console.log('result', result) //837799 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 
 export { }

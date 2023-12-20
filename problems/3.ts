@@ -5,6 +5,7 @@
 
     What is the largest Prime Factor of the number 600851475143?
 */
+import { measureTime } from "../utils"
 
 function solve(target: number) {
     let largestPrimeFactor: number = 0
@@ -37,7 +38,9 @@ function solve(target: number) {
 
 }
 
-console.log(solve(600851475143));//6857
+const [result, elapsedTime] = measureTime(() => solve(600851475143))
+console.log('result', result) // 6857
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 
 export { }

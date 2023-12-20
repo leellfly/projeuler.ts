@@ -5,6 +5,7 @@
 
     Find the sum of all the primes below two million.
  */
+import { measureTime } from "../utils"
 
 function solve(maxPrime: number): number {
     const sieve = Array(maxPrime).fill(true)
@@ -30,7 +31,10 @@ function solve(maxPrime: number): number {
 }
 
 const maxPrime = 2000000
-console.log(solve(maxPrime))//142913828922
+
+const [result, elapsedTime] = measureTime(() => solve(maxPrime))
+console.log('result', result) //142913828922 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 
 export { }

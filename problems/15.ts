@@ -19,6 +19,7 @@
 
     How many such routes are there through a 20 x 20 grid?
  */
+import { measureTime } from "../utils"
 
 function solve(gridWidth: number, gridHeight: number) {
     const routesNumber: number[][] = []
@@ -39,7 +40,11 @@ function solve(gridWidth: number, gridHeight: number) {
 
 const gridWidth = 20
 const gridHeight = 20
-console.log(solve(gridWidth, gridHeight))//137846528820
+
+const [result, elapsedTime] = measureTime(() => solve(gridWidth, gridHeight))
+console.log('result', result) //137846528820 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
+
 
 
 export { }

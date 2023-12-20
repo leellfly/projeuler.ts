@@ -13,6 +13,8 @@
     Find the difference between the sum of the squares of the first one hundred natural numbers and the
     square of the sum.
  */
+import { measureTime } from "../utils"
+
 function solve() {
 
     const arr = Array.from({ length: 100 }, (_, index) => index + 1)
@@ -24,7 +26,9 @@ function solve() {
     return sumSquare - squareSum
 }
 
-console.log(solve());//25164150
+const [result, elapsedTime] = measureTime(() => solve())
+console.log('result', result) //25164150 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 
 export { }

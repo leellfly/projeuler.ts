@@ -6,6 +6,7 @@
 
     Find the largest palindrome made from the product of two 3-digit numbers.
 */
+import { measureTime } from "../utils"
 
 function solve(): number {
     let largestPalindrome: number = 0
@@ -33,7 +34,9 @@ function solve(): number {
     return largestPalindrome
 }
 
-console.log(solve())
+const [result, elapsedTime] = measureTime(() => solve())
+console.log('result', result) //906609 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 
 export { }

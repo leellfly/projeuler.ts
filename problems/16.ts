@@ -5,6 +5,7 @@
 
     What is the sum of the digits of the number 2 ^ 1000?
 */
+import { measureTime } from "../utils"
 
 function solve(): number {
     const result: bigint = BigInt(Math.pow(2, 1000))
@@ -13,7 +14,9 @@ function solve(): number {
     return resultStr.split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0)
 }
 
-console.log(solve())//1366
+const [result, elapsedTime] = measureTime(() => solve())
+console.log('result', result) //1366 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 
 export { }

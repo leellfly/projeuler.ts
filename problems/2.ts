@@ -9,6 +9,7 @@
     By considering the terms in the Fibonacci sequence whose values do not exceed
     four million, find the sum of the even-valued terms.
 */
+import { measureTime } from "../utils"
 
 function solve(maxNum: number): number {
     let sum = 0  // Initialize sum to 0
@@ -28,8 +29,10 @@ function solve(maxNum: number): number {
     return sum
 }
 
-console.log(solve(4000000)) // 4613732
 
+const [result, elapsedTime] = measureTime(() => solve(4000000))
+console.log('result', result) // 4613732
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 export { }
 

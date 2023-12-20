@@ -18,6 +18,7 @@
 
     What is the value of the first triangle number to have over five hundred divisors?
 */
+import { measureTime } from "../utils"
 
 function solve(targetDivisorsCount: number): number {
     const getPrimeFactors = (num: number) => {
@@ -51,8 +52,9 @@ function solve(targetDivisorsCount: number): number {
     return triangleNumber
 }
 
-console.log(solve(500))//76576500
-
+const [result, elapsedTime] = measureTime(() => solve(500))
+console.log('result', result) //76576500 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 export { }
 /**

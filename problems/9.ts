@@ -9,6 +9,7 @@
     There exists exactly one Pythagorean triplet for which a + b + c = 1000.
     Find the product abc.
 */
+import { measureTime } from "../utils"
 
 function solve() {
     for (let a = 1; a < (1000 / 3); a++) {
@@ -21,7 +22,9 @@ function solve() {
     }
 }
 
-console.log(solve())//31875000
+const [result, elapsedTime] = measureTime(() => solve())
+console.log('result', result) //31875000 
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
 
 
 export default {}
