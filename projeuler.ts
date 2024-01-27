@@ -82,7 +82,7 @@ function main(): void {
         doRun(conf)
     } else {
         console.log('Invalid command:', args.command)
-        console.log('Usage: ts-node script.ts <command> <id> [--full]')
+        console.log('Usage: ts-node projeuler.ts <command> <id> [--full]')
     }
 }
 
