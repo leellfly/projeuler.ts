@@ -16,41 +16,40 @@
   How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec
   2000)?
 */
-function isLeapYear(year: number) {
-  return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)
-}
 
-//每个月的1号是周几
 function solve() {
-
-  const tirtyDaysMonthArr = ['September', 'November', 'June', 'April']
-  const tirtyOneDaysMonthArr = ['January', 'March', 'May', 'July', 'August', 'October', 'December']
-  const specialMonth = 'February'
-
   const monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-  let totalDay = 0
+  const thirtyDaysMonthArr = ['September', 'November', 'June', 'April']
+  const thirtyOneDaysMonthArr = ['January', 'March', 'May', 'July', 'August', 'October', 'December']
+  const specialMonth = 'February'
 
+  let totalDay = 0
   let satisfiedCount = 0
+
+  const isLeapYear = (year: number) => {
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)
+  }
+
+  const getDaysInMonth = (monthName: string, year: number) => {
+    if (year <= 1901) return 0
+    if (monthName === specialMonth) {
+      return isLeapYear(year) ? 29 : 28
+    } else if (thirtyDaysMonthArr.includes(monthName)) {
+      return 30
+    } else if (thirtyOneDaysMonthArr.includes(monthName)) {
+      return 31
+    } else {
+      return 0
+    }
+  }
 
   for (let year = 1901; year <= 2000; year++) {
     for (let month = 0; month < 12; month++) {
 
-      let lastMonthName = month === 0 ?  'December' :  monthArr[month - 1]
+      let lastMonthName = month === 0 ? 'December' : monthArr[month - 1]
 
-      if(year === 1901){
-        totalDay = 0
-      }
-
-      if (tirtyDaysMonthArr.includes(lastMonthName)) {
-        totalDay += 30
-      }
-      if (tirtyOneDaysMonthArr.includes(lastMonthName)) {
-        totalDay += 31
-      }
-      if (lastMonthName === specialMonth) {
-        isLeapYear(year) ? totalDay += 29 : totalDay += 28
-      }
+      totalDay += getDaysInMonth(lastMonthName, year)
 
       if ((totalDay + 1) % 7 === 0) {
         satisfiedCount += 1
@@ -60,5 +59,6 @@ function solve() {
 
   return satisfiedCount
 }
+
 
 console.log(solve())
