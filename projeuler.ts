@@ -1,33 +1,23 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-class RunConfigure {
-    static fromParser(args: Args): RunConfigure {
-        return new RunConfigure()
-    }
-}
-
 class Args {
     command: string
     id: string
-    full: boolean
 
-    constructor(command: string, id: string, full: boolean) {
+    constructor(command: string, id: string) {
         this.command = command
         this.id = id
-        this.full = full
     }
 }
 
 function parseArgs(): Args {
     const command = process.argv[2]
     const id = process.argv[3]
-    const full = process.argv.includes('--full')
 
-    const args = new Args(command, id, full)
+    const args = new Args(command, id)
     return args
 }
-
 
 class FolderExecutionTimer {
     private folderPath: string
@@ -56,15 +46,38 @@ class FolderExecutionTimer {
     }
 }
 
-function doList(id: string, full: boolean): void {
-    console.log('List command:', id, full)
-}
-
 function doCreate(id: string): void {
-    console.log('Create command:', id)
+    let filename = `p${id.toString().padStart(4, '0')}.ts`;
+    const PROBLEM_DIR = 'problems'
+    const filepath = path.join(PROBLEM_DIR, filename)
+
+    if (fs.existsSync(filepath)) {
+        console.log(`File ${filepath} already exists`);
+    } else {
+        let fileContent = (
+            "/*" +
+            "\n" +
+            "\n" +
+            '*/' +
+            "\n" +
+            "\n" +
+            'import { measureTime } from "../utils"\n' +
+            "\n" +
+            "function solve() {\n" +
+            "\n" +
+            '}\n' +
+            "\n" +
+            "const [result, elapsedTime] = measureTime(() => solve())\n" +
+            "console.log('result', result)\n" +
+            "console.log(`Elapsed Time: ${elapsedTime} milliseconds`)\n"
+        );
+
+        fs.writeFileSync(filepath, fileContent, { encoding: 'utf-8' })
+        console.log(`File ${filepath} created successfully`)
+    }
 }
 
-function doRun(conf: RunConfigure): void {
+function doRun(): void {
     const folderPath = 'problems'
     const folderTimer = new FolderExecutionTimer(folderPath)
     folderTimer.measureExecutionTimeForSolveMethods()
@@ -72,17 +85,14 @@ function doRun(conf: RunConfigure): void {
 
 function main(): void {
     const args = parseArgs()
-
-    if (args.command === "list") {
-        doList(args.id, args.full)
+    console.log(args);
+    if (args.command === "run") {
+        doRun()
     } else if (args.command === "create") {
         doCreate(args.id)
-    } else if (args.command === "run") {
-        const conf = RunConfigure.fromParser(args)
-        doRun(conf)
     } else {
-        console.log('Invalid command:', args.command)
-        console.log('Usage: ts-node projeuler.ts <command> <id> [--full]')
+        console.warn('Invalid command:', args.command)
+        console.warn('Usage: ts-node projeuler.ts <command> <id>')
     }
 }
 
