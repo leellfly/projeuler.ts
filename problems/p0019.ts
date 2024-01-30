@@ -17,41 +17,48 @@
   2000)?
 */
 
+import { measureTime } from "../utils"
+
 function solve() {
-  const monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
-  const thirtyDaysMonthArr = ['September', 'November', 'June', 'April']
-  const thirtyOneDaysMonthArr = ['January', 'March', 'May', 'July', 'August', 'October', 'December']
-  const specialMonth = 'February'
-
-  let totalDay = 0
-  let satisfiedCount = 0
+  const monthInfo = {
+    names: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    thirtyDays: ['September', 'November', 'June', 'April'],
+    thirtyOneDays: ['January', 'March', 'May', 'July', 'August', 'October', 'December'],
+    specialMonth: 'February'
+  }
 
   const isLeapYear = (year: number) => {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)
   }
 
   const getDaysInMonth = (monthName: string, year: number) => {
-    if (year <= 1901) return 0
-    if (monthName === specialMonth) {
+    if (monthName === monthInfo.specialMonth) {
       return isLeapYear(year) ? 29 : 28
-    } else if (thirtyDaysMonthArr.includes(monthName)) {
+    } else if (monthInfo.thirtyDays.includes(monthName)) {
       return 30
-    } else if (thirtyOneDaysMonthArr.includes(monthName)) {
+    } else if (monthInfo.thirtyOneDays.includes(monthName)) {
       return 31
     } else {
       return 0
     }
   }
 
-  for (let year = 1901; year <= 2000; year++) {
-    for (let month = 0; month < 12; month++) {
+  const START_YEAR = 1900
+  const END_YEAR = 2000
 
-      let lastMonthName = month === 0 ? 'December' : monthArr[month - 1]
+  let totalDay = 0
+  let satisfiedCount = 0
+
+  for (let year = START_YEAR; year <= END_YEAR; year++) {
+    for (let month = 0; month < 12; month++) {
+      let lastMonthName = month === 0 ? monthInfo.names[monthInfo.names.length - 1] : monthInfo.names[month - 1]
+      if (year === START_YEAR && month === 0) {
+        lastMonthName = ''
+      }
 
       totalDay += getDaysInMonth(lastMonthName, year)
 
-      if ((totalDay + 1) % 7 === 0) {
+      if ((year > START_YEAR) && (totalDay + 1) % 7 === 0) {
         satisfiedCount += 1
       }
     }
@@ -60,5 +67,6 @@ function solve() {
   return satisfiedCount
 }
 
-
-console.log(solve())
+const [result, elapsedTime] = measureTime(() => solve())
+console.log('result', result)//171
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
