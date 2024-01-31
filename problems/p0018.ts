@@ -34,6 +34,8 @@
   solved by brute force, and requires a clever method! ;o)
 */
 
+import { measureTime } from "../utils"
+
 const TRIANGLE = [
   [75],
   [95, 64],
@@ -52,7 +54,7 @@ const TRIANGLE = [
   [4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23],
 ]
 
-function getMaximumTotal() {
+function solve() {
   let maximumTotal = TRIANGLE[0][0]
   let curIndex = 0
 
@@ -68,4 +70,6 @@ function getMaximumTotal() {
   return maximumTotal
 }
 
-console.log(getMaximumTotal());//1064
+const [result, elapsedTime] = measureTime(() => solve())
+console.log('result', result)
+console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
