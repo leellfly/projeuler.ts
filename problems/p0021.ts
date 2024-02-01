@@ -15,40 +15,41 @@
 import { measureTime } from "../utils"
 
 function solve() {
-  const getSumOfDivisors = (n: number) => {
-    const divisors: Array<number> = []
+  const memo: Map<number, number> = new Map()
 
-    for (let i = 1; i < n; i++) {
+  const d = (n: number) => {
+    if (memo.has(n)) return memo.get(n)!
+
+    const divisors: number[] = [];
+    for (let i = 1; i <= Math.sqrt(n); i++) {
       if (n % i === 0) {
         divisors.push(i)
+        if (i !== n / i) divisors.push(n / i)
       }
     }
 
-    const sum = divisors.reduce((pre, next) => pre + next, 0)
+    const sum = divisors.reduce((acc, val) => acc + val, -n)
+
+    memo.set(n, sum)
 
     return sum
   }
 
-  const isAmicableNumbers = (a: number, b: number) => {
-    const d = getSumOfDivisors
-    return ((a !== b) && (d(a) === b) && d(b) === a)
-  }
+  const isAmicableNumbers = (a: number, b: number) => a !== b && d(a) === b && d(b) === a
 
-  let visited: Array<number> = []
+  const visited = new Set<number>()
   let sumOfAmicableNumbers = 0
 
-  for (let i = 0; i < 10000; i++) {
-    if (visited.indexOf(i) === -1) {
-      const d = getSumOfDivisors
-
+  for (let i = 2; i < 10000; i++) {
+    if (!visited.has(i)) {
       let a = i
       let b = d(i)
 
       if (isAmicableNumbers(a, b)) {
-        sumOfAmicableNumbers += (a + b)
-        visited.push(b)
+        sumOfAmicableNumbers += a + b
+        visited.add(a)
+        visited.add(b)
       }
-
     }
   }
 
