@@ -21,27 +21,29 @@
 import { measureTime } from "../utils"
 
 function solve() {
-
   const calculateProperDivisorsSum = (n: number): number => {
     let sum = 1// 1 is a proper divisor for all numbers
-    for (let i = 2; i <= Math.sqrt(n); i++) {
+    const sqrtN = Math.sqrt(n)
+
+    for (let i = 2; i <= sqrtN; i++) {
       if (n % i === 0) {
         sum += i
         if (i !== n / i) sum += n / i
       }
     }
+
     return sum
   }
 
   //check if the sum of its proper divisors is exactly exceeds to the number
-  const isAbundantNumber = (n: number) => {
-    return calculateProperDivisorsSum(n) > n
-  }
+  const isAbundantNumber = (n: number) => calculateProperDivisorsSum(n) > n
+
+  // cache results for abundant numbers
+  const isAbundant = Array.from({ length: 28123 + 1 }, (_, i) => isAbundantNumber(i))
 
   const isSumOfTwoAbundantNumbers = (n: number): boolean => {
-    console.log(n, 'n');
-    for (let i = 1; i <= n / 2; i++) {
-      if (isAbundantNumber(i) && isAbundantNumber(n - i)) {
+    for (let i = 12; i <= n / 2; i++) {
+      if (isAbundant[i] && isAbundant[n - i]) {
         return true
       }
     }
@@ -51,7 +53,7 @@ function solve() {
   let nonAbundantSums = 0
 
   for (let i = 1; i <= 28123; i++) {
-    if (!isSumOfTwoAbundantNumbers(i)) {
+    if (i < 24 || !isSumOfTwoAbundantNumbers(i)) {
       nonAbundantSums += i
     }
   }
