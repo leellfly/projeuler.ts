@@ -12,30 +12,34 @@
 
 import { measureTime } from "../utils"
 
-function solve(): Array<number> {
-  const digits: Array<number> = [0, 1, 2];
-  /**
-   * 012
-   * 021
-   * 102
-   * 120
-   * 201
-   * 210
-   */
-  const res: Array<number> = [];
+function solve(elements: Array<number>): Array<number> {
+  const getAllPermutations = (elements: Array<number>): Array<Array<number>> => {
+    if (elements.length <= 1) {
+      return [elements];
+    }
 
-  for (let i = 0; i < digits.length; i++) {
-    for (let j = 0; j < digits.length; j++) {
-      if (i !== j) {
+    let all_permutations: Array<Array<number>> = [];
 
+    for (let index = 0; index < elements.length; index++) {
+      let currentElement = elements[index];
+      let remainElement = elements.slice(0, index).concat(elements.slice(index + 1));
+      let remaining_permutations = getAllPermutations(remainElement);
+
+      for (let j = 0; j < remaining_permutations.length; j++) {
+        all_permutations.push([currentElement].concat(remaining_permutations[j]));
       }
     }
-  }
 
-  return res;
+    return all_permutations;
+  };
+
+  const allPermutations = getAllPermutations(elements);
+  const sortedPermutations = allPermutations.sort();
+
+  return sortedPermutations[999999] || [];
 }
 
-
-const [result, elapsedTime] = measureTime(() => solve())
-console.log('result', result)
+const digits: Array<number> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+const [result, elapsedTime] = measureTime(() => solve(digits))
+console.log('result', result)//2783915460
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
