@@ -23,10 +23,23 @@
 
 import { measureTime } from "../utils"
 
-function solve() {
+function solve(containDigits: number) {
+  const Fibonacci = (n: number): number => {
+    if (n === 1) return 1
+    if (n === 2) return 1
+    return Fibonacci(n - 1) + Fibonacci(n - 2)
+  }
 
+  let result: number = 0
+  for (let i = 12; i > 0; i++) {
+    if (Fibonacci(i).toString().length >= containDigits) {
+      result = i
+      break
+    }
+  }
+  return result
 }
 
-const [result, elapsedTime] = measureTime(() => solve())
+const [result, elapsedTime] = measureTime(() => solve(1000))
 console.log('result', result)
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
