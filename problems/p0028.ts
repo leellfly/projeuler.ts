@@ -18,9 +18,27 @@
 import { measureTime } from "../utils"
 
 function solve() {
+  let s: number = 1
 
+  let i: number = 3
+  let d: number = 2
+  let c: number = 0
+
+  while (i <= 1001 * 1001) {
+    s += i
+    c += 1
+
+    if (c === 4) {
+      c = 0
+      d += 2
+    }
+
+    i += d
+  }
+
+  return s
 }
 
 const [result, elapsedTime] = measureTime(() => solve())
-console.log('result', result)
+console.log('result', result)//669171001
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
