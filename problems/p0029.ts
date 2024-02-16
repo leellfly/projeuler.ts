@@ -18,10 +18,19 @@
 
 import { measureTime } from "../utils"
 
-function solve() {
+function solve(): number {
+  const terms: Set<number> = new Set();
 
+  for (let a = 2; a <= 100; a++) {
+      for (let b = 2; b <= 100; b++) {
+          terms.add(Math.pow(a, b));
+      }
+  }
+
+  return terms.size;
 }
 
+
 const [result, elapsedTime] = measureTime(() => solve())
-console.log('result', result)
+console.log('result', result)//9183
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
