@@ -26,7 +26,7 @@ function solve(): number {
       terms.add(Math.pow(a, b))
     }
   }
-  console.log(terms,'terms');
+
   return terms.size;
 }
 
