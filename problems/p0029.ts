@@ -27,7 +27,7 @@ function solve(): number {
     }
   }
 
-  return terms.size;
+  return terms.size
 }
 
 
