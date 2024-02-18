@@ -4,11 +4,11 @@
   Starting with the number 1 and moving to the right in a clockwise direction a 5 by 5 spiral is
   formed as follows:
 
-          [21]     22      23      24     [25]
-          20     [ 7]      8     [ 9]     10
-          19       6     [ 1]      2      11
-          18     [ 5]      4     [ 3]     12
-          [17]     16      15      14     [13]
+    [21]     22      23      24     [25]
+    20     [ 7]      8     [ 9]     10 
+    19       6     [ 1]      2      11
+    18     [ 5]      4     [ 3]     12
+    [17]     16      15      14     [13]
 
   It can be verified that the sum of the numbers on the diagonals is 101.
 
@@ -17,28 +17,30 @@
 
 import { measureTime } from "../utils"
 
-function solve() {
-  let s: number = 1
+function solve(layerNumber: number) {
+  let diagonalsSum: number = 1
 
-  let i: number = 3
-  let d: number = 2
-  let c: number = 0
+  let currentLayer: number = 2
 
-  while (i <= 1001 * 1001) {
-    s += i
-    c += 1
+  let step = 2
 
-    if (c === 4) {
-      c = 0
-      d += 2
+  let maxLayer = (layerNumber + 1) / 2
+
+  let curValue = 1
+
+  while (currentLayer <= maxLayer) {
+    for (let i = 0; i < 4; i++) {
+      curValue += step
+      diagonalsSum += curValue
     }
 
-    i += d
+    currentLayer++
+    step += 2
   }
 
-  return s
+  return diagonalsSum
 }
 
-const [result, elapsedTime] = measureTime(() => solve())
+const [result, elapsedTime] = measureTime(() => solve(1001))
 console.log('result', result)//669171001
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
