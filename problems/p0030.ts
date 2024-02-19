@@ -14,6 +14,7 @@
 */
 
 import { measureTime } from "../utils"
+
 function solve(): number {
   let result = 0;
 
