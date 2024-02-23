@@ -16,7 +16,6 @@
         |    |    ||   |    ||   |    ||   |    |
         * -- * -- *    * -- * == *    * == * == *
 
-
     How many such routes are there through a 20 x 20 grid?
  */
 import { measureTime } from "../utils"
