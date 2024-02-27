@@ -18,8 +18,32 @@ import { measureTime } from "../utils"
 
 function solve() {
 
+  const isPandigital = (a: number, b: number, c: number): boolean => {
+    const concatenated = `${a}${b}${c}`
+    if (concatenated.length !== 9) {
+      return false
+    }
+
+    const digits = new Set(concatenated.split(''))
+    return digits.size === 9 && !digits.has('0')
+  }
+
+  const products = new Set<number>()
+
+  for (let a = 1; a < 10000; a++) {
+    for (let b = 1; b < 10000; b++) {
+      const c = a * b
+
+      if (isPandigital(a, b, c)) {
+        products.add(c)
+      }
+    }
+  }
+
+  return Array.from(products).reduce((sum, product) => sum + product, 0)
+
 }
 
 const [result, elapsedTime] = measureTime(() => solve())
-console.log('result', result)
+console.log('result', result)//45228
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
