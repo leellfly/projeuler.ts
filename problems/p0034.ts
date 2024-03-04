@@ -11,9 +11,27 @@
 import { measureTime } from "../utils"
 
 function solve() {
+  const getDigitFactorials = (n: number): number => {
+    if (n === 0 || n === 1) return 1
+    return n * getDigitFactorials(n - 1)
+  }
 
+  const digitCacheArr: number[] = Array.from({ length: 10 }, (_, x: number) => getDigitFactorials(x))
+
+  let sum = 0
+
+  const UPPER_LIMIT = 1000000
+
+  for (let i = 10; i <= UPPER_LIMIT; i++) {
+    let digitFactorials = i.toString().split('').reduce((total, current) => total + digitCacheArr[(+current)], 0)
+    if (i == digitFactorials) {
+      sum += i
+    }
+  }
+
+  return sum
 }
 
 const [result, elapsedTime] = measureTime(() => solve())
-console.log('result', result)
+console.log('result', result)//40730
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
