@@ -11,10 +11,10 @@
 import { measureTime } from "../utils"
 
 function solve() {
-  const isPalindromic = (digital: number | string): boolean => {
-    const digitalStr = typeof digital === "number" ? digital.toString() : digital
-    const digitalRevertStr = digitalStr.split('').reverse().join('')
-    return digitalStr === digitalRevertStr
+  const isPalindromic = (value: number | string): boolean => {
+    const valueStr = value.toString()
+    const valueRevertStr = valueStr.split('').reverse().join('')
+    return valueStr === valueRevertStr
   }
 
   const decimal2Binary = (decimalNumber: number): string => {
@@ -33,13 +33,10 @@ function solve() {
   }
 
   let sum = 0
-
+  
   for (let i = 1; i <= 1000000; i++) {
-    if (isPalindromic(i)) {
-      const digitalBinary = decimal2Binary(i)
-      if (isPalindromic(digitalBinary)) {
-        sum += i
-      }
+    if (isPalindromic(i) && isPalindromic(decimal2Binary(i))) {
+      sum += i
     }
   }
 
