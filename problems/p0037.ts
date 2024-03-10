@@ -14,6 +14,38 @@
 import { measureTime } from "../utils"
 
 function solve() {
+  const right2Left = () => {
+
+  }
+
+  const left2right = () => {
+
+  }
+
+  const isPrime = () => {
+
+  }
+
+  let sum = 0
+  let count = 0
+
+  for (let i = 11; i < 1000000; i++) {
+    const remainDigitR2L = right2Left()
+    const remainDigitL2R = left2right()
+
+    const remain = [...remainDigitL2R, ...remainDigitR2L]
+
+    const isTruncatablePrimes = remain.every(item => {
+      return isPrime(item)
+    })
+
+    if(isTruncatablePrimes){
+      sum++
+      count++
+    }
+
+    if(count === 11) break
+  }
 
 }
 
