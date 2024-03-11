@@ -14,39 +14,68 @@
 import { measureTime } from "../utils"
 
 function solve() {
-  const right2Left = () => {
+  const right2LeftRemove = (digit: number): number[] => {
+    let result = []
+    const digitStr = digit.toString()
+    const len = digitStr.length
 
-  }
+    for (let i = 0; i < len; i++) {
+      result.push(+digitStr.slice(0, len - i))
+    }
 
-  const left2right = () => {
+    return result
+  };
 
-  }
+  const left2RightRemove = (digit: number): number[] => {
+    let result = []
+    const digitStr = digit.toString()
+    const len = digitStr.length
 
-  const isPrime = () => {
+    for (let i = 0; i < len; i++) {
+      result.push(+digitStr.slice(i))
+    }
 
+    return result
+  };
+
+  const isPrime = (n: number, primes: Set<number>): boolean => {
+    if (n <= 1) {
+      return false
+    }
+    if (primes.has(n)) {
+      return true
+    }
+
+    const sqrtN = Math.sqrt(n)
+    for (let j = 2; j <= sqrtN; j++) {
+      if (n % j === 0) {
+        return false
+      }
+    }
+    primes.add(n)
+    return true
   }
 
   let sum = 0
   let count = 0
+  const primes = new Set<number>()
 
   for (let i = 11; i < 1000000; i++) {
-    const remainDigitR2L = right2Left()
-    const remainDigitL2R = left2right()
+    const remainDigitR2L = right2LeftRemove(i)
+    const remainDigitL2R = left2RightRemove(i)
+    const truncatablePrimes = [...remainDigitL2R, ...remainDigitR2L]
 
-    const remain = [...remainDigitL2R, ...remainDigitR2L]
+    const isTruncatablePrimes = truncatablePrimes.every((item) => isPrime(item, primes))
 
-    const isTruncatablePrimes = remain.every(item => {
-      return isPrime(item)
-    })
-
-    if(isTruncatablePrimes){
-      sum++
+    if (isTruncatablePrimes) {
+      sum += i
       count++
     }
 
-    if(count === 11) break
+    if (count === 11) break
   }
 
+  return sum
 }
 
 const [result, elapsedTime] = measureTime(() => solve())
