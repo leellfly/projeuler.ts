@@ -14,8 +14,8 @@
 import { measureTime } from "../utils"
 
 function solve() {
-  const right2LeftRemove = (digit: number): number[] => {
-    let result = []
+  const right2LeftRemove = (digit: number): Array<number> => {
+    let result: Array<number> = []
     const digitStr = digit.toString()
     const len = digitStr.length
 
@@ -24,10 +24,10 @@ function solve() {
     }
 
     return result
-  };
+  }
 
-  const left2RightRemove = (digit: number): number[] => {
-    let result = []
+  const left2RightRemove = (digit: number): Array<number> => {
+    let result: Array<number> = []
     const digitStr = digit.toString()
     const len = digitStr.length
 
@@ -36,7 +36,7 @@ function solve() {
     }
 
     return result
-  };
+  }
 
   const isPrime = (n: number, primes: Set<number>): boolean => {
     if (n <= 1) {
@@ -79,5 +79,5 @@ function solve() {
 }
 
 const [result, elapsedTime] = measureTime(() => solve())
-console.log('result', result)
+console.log('result', result)//748317
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
