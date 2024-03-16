@@ -35,8 +35,6 @@ function solve(): number {
 }
 
 
-
-
 const [result, elapsedTime] = measureTime(() => solve())
 console.log('result', result)
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
