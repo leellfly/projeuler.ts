@@ -10,33 +10,31 @@
 import { measureTime } from "../utils"
 
 function solve(): number {
+  const solutionsMap: { [key: number]: number } = {}
 
-  const solutionsMap: Map<number, number> = new Map();
+  const maxLimit = 1000
 
-  for (let a = 1; a < 1000; a++) {
-    for (let b = a; b < 1000; b++) {
-      const c = Math.sqrt(a ** 2 + b ** 2);
-      if (Number.isInteger(c)) {
-        const p = a + b + c;
-        if (p <= 1000) {
-          solutionsMap.set(p, (solutionsMap.get(p) || 0) + 1);
+  let maximisedSolutions = 0
+  let maxPerimeter = 0
+
+  for (let a = 1; a < maxLimit / 3; a++) { //a + b + c <= 1000
+    for (let b = a; b < (maxLimit - a) / 2; b++) { //a + b + c <= 1000 & b <= c
+      const c = Math.sqrt(a ** 2 + b ** 2)
+      const p = a + b + c
+      if (p <= maxLimit && Number.isInteger(c)) {
+        solutionsMap[p] = (solutionsMap[p] || 0) + 1
+        if (solutionsMap[p] > maximisedSolutions) {
+          maximisedSolutions = solutionsMap[p]
+          maxPerimeter = p
         }
       }
     }
   }
 
-  let maximisedSolutions = 0;
-  let maxPerimeter = 0;
-
-  solutionsMap.forEach((count, perimeter) => {
-    if (count > maximisedSolutions) {
-      maximisedSolutions = count;
-      maxPerimeter = perimeter;
-    }
-  });
-
-  return maxPerimeter;
+  return maxPerimeter
 }
+
+
 
 
 const [result, elapsedTime] = measureTime(() => solve())
