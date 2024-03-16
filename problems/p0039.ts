@@ -11,36 +11,31 @@ import { measureTime } from "../utils"
 
 function solve(): number {
 
-  interface MyObject {
-    [key: number]: number;
-  }
-
-  const findKeyByValue = (obj: MyObject, value: number): number => {
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key) && obj[key] === value) {
-        return +key
-      }
-    }
-    return 0
-  }
-
-  let maximisedSolutions = 0
-  const solutionsMap: MyObject = {}
+  const solutionsMap: Map<number, number> = new Map();
 
   for (let a = 1; a < 1000; a++) {
     for (let b = a; b < 1000; b++) {
-      const c = Math.sqrt(a ** 2 + b ** 2)
-      if (c % 1 === 0) {
-        const p = a + b + c
+      const c = Math.sqrt(a ** 2 + b ** 2);
+      if (Number.isInteger(c)) {
+        const p = a + b + c;
         if (p <= 1000) {
-          solutionsMap[p] = (solutionsMap[p] || 0) + 1
-          maximisedSolutions = Math.max(maximisedSolutions, solutionsMap[p])
+          solutionsMap.set(p, (solutionsMap.get(p) || 0) + 1);
         }
       }
     }
   }
 
-  return findKeyByValue(solutionsMap, maximisedSolutions)
+  let maximisedSolutions = 0;
+  let maxPerimeter = 0;
+
+  solutionsMap.forEach((count, perimeter) => {
+    if (count > maximisedSolutions) {
+      maximisedSolutions = count;
+      maxPerimeter = perimeter;
+    }
+  });
+
+  return maxPerimeter;
 }
 
 
