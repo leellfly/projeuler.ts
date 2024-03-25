@@ -19,9 +19,43 @@
 import { measureTime } from "../utils"
 
 function solve() {
+  const isDivisibleSubstring = (num: string): boolean => {
+    const divisors = [2, 3, 5, 7, 11, 13, 17]
+    for (let i = 1; i <= 7; i++) {
+      const subNum = parseInt(num.substr(i, 3))
+      if (subNum % divisors[i - 1] !== 0) {
+        return false
+      }
+    }
+    return true
+  }
 
+  const permute = (nums: number[], start: number, end: number, results: string[]) => {
+    if (start === end) {
+      const numStr = nums.join('')
+      if (isDivisibleSubstring(numStr)) {
+        results.push(numStr)
+      }
+    } else {
+      for (let i = start; i <= end; i++) {
+        [nums[start], nums[i]] = [nums[i], nums[start]] // Swap
+        permute(nums, start + 1, end, results);
+        [nums[start], nums[i]] = [nums[i], nums[start]] // Revert the swap
+      }
+    }
+  }
+
+  const generatePermutations = () => {
+    const nums: number[] = Array.from(Array(10), (_, i) => i)
+    const permutations: string[] = []
+    permute(nums, 0, nums.length - 1, permutations)
+    return permutations;
+  }
+
+  const pandigitalNumbers = generatePermutations().map(Number)
+  return pandigitalNumbers.reduce((sum, num) => sum + num, 0)
 }
 
 const [result, elapsedTime] = measureTime(() => solve())
-console.log('result', result)
+console.log('result', result)//16695334890
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
