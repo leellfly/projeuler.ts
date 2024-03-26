@@ -42,10 +42,10 @@ function solve() {
       count++
     }
   })
-  
+
   return count
 }
 
 const [result, elapsedTime] = measureTime(() => solve())
-console.log('result', result)
+console.log('result', result)//162
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
