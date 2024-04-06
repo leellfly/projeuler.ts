@@ -15,11 +15,37 @@
 */
 
 import { measureTime } from "../utils"
-
 function solve() {
+  const countDistinctPrimeFactors = (num: number): number => {
+    let count = 0
+    let divisor = 2
 
+    while (num > 1) {
+      if (num % divisor === 0) {
+        count++
+        while (num % divisor === 0) {
+          num /= divisor
+        }
+      }
+      divisor++
+    }
+
+    return count
+  }
+
+  let num = 647
+
+  while (true) {
+    if (countDistinctPrimeFactors(num) === 4 &&
+      countDistinctPrimeFactors(num + 1) === 4 &&
+      countDistinctPrimeFactors(num + 2) === 4 &&
+      countDistinctPrimeFactors(num + 3) === 4) {
+      return num
+    }
+    num++
+  }
 }
 
 const [result, elapsedTime] = measureTime(() => solve())
-console.log('result', result)
+console.log('result', result)//134043
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
