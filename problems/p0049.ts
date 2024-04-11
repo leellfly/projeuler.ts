@@ -18,5 +18,5 @@ function solve() {
 }
 
 const [result, elapsedTime] = measureTime(() => solve())
-console.log('result', result)
+console.log('result', result)//296962999629
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
