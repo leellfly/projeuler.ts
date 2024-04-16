@@ -14,9 +14,40 @@
 import { measureTime } from "../utils"
 
 function solve() {
+  const isPrime = (n: number) => {
+    if (n <= 1) {
+      return false
+    }
+    if (n == 2) {
+      return true
+    }
 
+    const middleN = n / 2
+    for (let j = 2; j < middleN; j++) {
+      if (n % j === 0) {
+        return false
+      }
+    }
+    return true
+  }
+
+  const arePermutations = (num1: number, num2: number, num3: number): boolean => {
+    const str1 = num1.toString().split('').sort().join('')
+    const str2 = num2.toString().split('').sort().join('')
+    const str3 = num3.toString().split('').sort().join('')
+    return str1 === str2 && str2 === str3
+  }
+
+  for (let i = 1000; i <= 9999 - 2 * 3330; i++) {
+    if (isPrime(i) && isPrime(i + 3330) && isPrime(i + 2 * 3330)) {
+      if (arePermutations(i, i + 3330, i + 2 * 3330)) {
+        return parseInt(`${i}${i + 3330}${i + 2 * 3330}`)
+      }
+    }
+  }
+  return -1; // If no such sequence is found
 }
 
 const [result, elapsedTime] = measureTime(() => solve())
-console.log('result', result)//296962999629
+console.log('result', result)//148748178147
 console.log(`Elapsed Time: ${elapsedTime} milliseconds`)
